@@ -54,6 +54,19 @@ Mutation: {
         throw new Error(err.message);
       }
     },
+
+    // Saves book to a user's `savedBooks`
+    saveBook: async (parent, args, context) => {
+      const { book } = args;
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { savedBooks: book } },
+        { new: true, runValidators: true }
+      ).populate('savedBooks');
+
+        return updatedUser;
+    },  
+
   }
 
   };
