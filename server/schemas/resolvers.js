@@ -18,5 +18,17 @@ const resolvers = {
       },
     },
 
+/*** MUTATIONS */
+Mutation: {
+  // Create a new user
+  addUser: async (parent, args) => {
+      const user = await User.create(args);
+
+      //* console.log(user);
+      const token = signToken(user);
+      
+      //* console.log({input});
+      return { token, user };
+  },}
 
   };
