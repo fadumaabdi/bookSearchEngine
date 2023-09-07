@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -11,16 +11,12 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
-//main graphql api endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
-//request middleware
 const authLink = setContext((_, { headers }) => {
-  //authentication from localstorage
   const token = localStorage.getItem('id_token');
-  //return headers to context so httplink can read them
   return {
     headers: {
       ...headers,
@@ -29,8 +25,6 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-
-//set up client to executre the authlink middleware
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
