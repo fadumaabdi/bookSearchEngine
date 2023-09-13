@@ -2,7 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Routes,
 } from "react-router-dom";
 
 import {
@@ -41,11 +41,11 @@ function App() {
       <Router>
         <>
           <Navbar />
-            <Switch>
+            <Routes>
               <Route exact path='/' component={SearchBooks} />
               <Route exact path='/saved' component={SavedBooks} />
               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-            </Switch>
+            </Routes>
         </>
       </Router>
     </ApolloProvider>
